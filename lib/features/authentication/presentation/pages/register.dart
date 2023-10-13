@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:echo_cash/core/constants/Validators.dart';
 import 'package:echo_cash/core/constants/app_constants.dart';
 import 'package:echo_cash/core/constants/app_globals.dart';
 import 'package:echo_cash/core/widgets/back_and_skip_button.dart';
@@ -72,13 +73,8 @@ class RegisterScreen extends StatelessWidget {
                       enabled: true,
                       decoration: customInputDecoration('Full Name',
                           isConnected: true),
-                      validator: (val) {
-                        if (val!.isEmpty) {
-                          return 'Name Is Empty';
-                        } else {
-                          return null;
-                        }
-                      },
+                      validator: (value) => Validators.nameValidate(value!, context),
+
                     ),
                     const SizedBox(height: 30),
                     TextFormField(
@@ -90,24 +86,8 @@ class RegisterScreen extends StatelessWidget {
                       },
                       decoration: customInputDecoration("Email Address",
                           isConnected: true),
-                      validator: (val) {
-                        // Define a regular expression (regex) pattern for validating email addresses
-                        final RegExp emailRegex = RegExp(
-                          r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$',
-                        );
+                        validator: (val)=> Validators.validateEmail(val!)
 
-                        // Check if the email input is empty
-                        if (val!.isEmpty) {
-                          return 'Email Address Is Empty';
-                        } else {
-                          // If email is provided, validate it against the regex pattern
-                          if (!emailRegex.hasMatch(val)) {
-                            return 'Email Address is Not Valid';
-                          }
-                          // Return null if email is valid, indicating no validation errors
-                          return null;
-                        }
-                      },
                     ),
                     const SizedBox(height: 30),
                     TextFormField(
@@ -117,18 +97,8 @@ class RegisterScreen extends StatelessWidget {
                       keyboardType: TextInputType.number,
                       decoration: customInputDecoration("PIN",
                           isConnected: true),
-                      validator: (val) {
-                        // Check if the PIN code input is empty
-                        if (val!.isEmpty) {
-                          return 'PIN Code is Empty';
-                        } else if (val.length < 6) {
-                          // Validate if the length of the PIN code is less than 6 characters
-                          return 'PIN Code Must Be 6 Chars at least';
-                        } else {
-                          // Return null if the PIN code meets the criteria, indicating no validation errors
-                          return null;
-                        }
-                      },
+                      validator: (val) => Validators.validatePassword(val!),
+
                       enabled: true ,
                     ),
                     const SizedBox(height: 30),
@@ -139,21 +109,11 @@ class RegisterScreen extends StatelessWidget {
                       keyboardType: TextInputType.number,
                       decoration: customInputDecoration("Confirm PIN",
                           isConnected: true),
-                      validator: (val) {
-                        // Check if the PIN code input is empty
-                        if (val!.isEmpty) {
-                          return 'PIN Code is Empty';
-                        } else if (val.length < 6) {
-                          // Validate if the length of the PIN code is less than 6 characters
-                          return 'PIN Code Must Be 6 Chars at least';
-                        } else if (val != passwordController.text.trim()) {
-                          // Validate if the length of the PIN code is less than 6 characters
-                          return 'PIN Code Not Match';
-                        } else {
-                          // Return null if the PIN code meets the criteria, indicating no validation errors
-                          return null;
-                        }
-                      },
+                      validator: (value) => Validators.confirmPasswordValidate(
+                          value!,
+                          passwordController.text.trim() ,
+                          context),
+
                       enabled: true,
                     ),
                     const SizedBox(height: 10),
@@ -185,14 +145,23 @@ class RegisterScreen extends StatelessWidget {
                             onPressed: () async {
                               // Validate the current form state.
                               if (_formKey.currentState!.validate()) {
+//                                Navigator.of(context).pushNamed(
+//                                    'successfull-screen',
+//                                    arguments: {
+//                                      'title': 'Regsiter Successfully',
+//                                      'subtitle':
+//                                          'account created successfully',
+//                                      'message':
+//                                          'You can now login to your account',
+//                                    });
                                 Navigator.of(context).pushNamed(
                                     'successfull-screen',
                                     arguments: {
-                                      'title': 'Regsiter Successfully',
+                                      'title': 'Thank you for Registering',
                                       'subtitle':
-                                          'account created successfully',
+                                          'A verification link has been sent to your email',
                                       'message':
-                                          'You can now login to your account',
+                                          'Please sign in to your email to verify your account',
                                     });
                               }
                             },

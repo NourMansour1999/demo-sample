@@ -1,3 +1,4 @@
+import 'package:echo_cash/core/constants/app_assets.dart';
 import 'package:echo_cash/core/constants/app_constants.dart';
 import 'package:echo_cash/core/constants/app_globals.dart';
 import 'package:echo_cash/core/widgets/back_and_skip_button.dart';
@@ -73,7 +74,7 @@ class _LaunchScreenState extends State<LaunchScreen> {
           children: [
             // For the Logo
             Expanded(
-              child: Image.asset('assets/images/logo_in_app_horizontal.png'),
+              child: Image.asset(AppAssets.appLogoHorizontal),
             ),
 
             // For the PageView

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:echo_cash/core/constants/Validators.dart';
 import 'package:echo_cash/core/constants/app_constants.dart';
 import 'package:echo_cash/core/constants/app_globals.dart';
 import 'package:flutter/material.dart';
@@ -52,26 +53,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                         },
                         decoration: customInputDecoration("Email Address",
                             isConnected: true),
-                        validator: (val) {
-                          // This is a regular expression (regex) for validating email addresses.
-                          final RegExp emailRegex = RegExp(
-                            r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$',
-                          );
-
-                          // Checks if the value passed to the validator (the email address) is empty.
-                          if (val!.isEmpty) {
-                            // If it is empty, it returns an error message.
-                            return 'Email Address Is Empty';
-                          } else {
-                            // If the email address isn't empty, it checks the value against the regex.
-                            if (!emailRegex.hasMatch(val)) {
-                              // If the email address doesn't match the regex, it returns an error message.
-                              return 'Email Address is Not Valid';
-                            }
-                            // If there are no issues, it returns null, indicating that there's no error.
-                            return null;
-                          }
-                        },
+                        validator: (val) =>Validators.validateEmail(val!)
                       ),
                       const SizedBox(height: 30),
                       const Spacer(),

@@ -1,0 +1,17 @@
+{
+  "**********************Drawer**********************": "****************",
+  "home": "Home",
+  "wallets": "Wallets",
+  "my_profile": "My profile",
+  "change_pin": "Change PIN",
+  "notifications": "Notifications",
+  "settings": "Settings",
+  "allow_notifications": "Allow Notifications",
+  "dark_mode": "Dark Mode",
+  "back": "Back",
+  "help": "Help",
+  "logout": "Logout",
+  "ar": "Arabic",
+  "en": "English",
+  "tr": "Turkish"
+}

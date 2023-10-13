@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:echo_cash/core/constants/Validators.dart';
 import 'package:echo_cash/core/constants/app_constants.dart';
 import 'package:echo_cash/core/constants/app_globals.dart';
 import 'package:echo_cash/core/widgets/guest_drawer_widget.dart';
@@ -36,7 +37,8 @@ class LoginScreen extends StatelessWidget {
       ),
       backgroundColor: whiteColor,
       body: Padding(
-        padding: const EdgeInsets.only(right: 30, left: 30, bottom: 30, top: 10),
+        padding:
+            const EdgeInsets.only(right: 30, left: 30, bottom: 30, top: 10),
         child: CustomScrollView(
           slivers: [
             SliverFillRemaining(
@@ -110,26 +112,10 @@ class LoginScreen extends StatelessWidget {
                       enabled: true,
                       decoration: customInputDecoration("Email Address",
                           isConnected: true),
-                      validator: (val) {
-                        // A regular expression pattern to match valid email addresses.
-                        final RegExp emailRegex = RegExp(
-                          r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$',
-                        );
+                      validator: (val)=> Validators.validateEmail(val!)
 
-                        // Check if the email input is empty.
-                        if (val!.isEmpty) {
-                          return 'Email Address Is Empty';
-                        } else {
-                          // Check if the provided email doesn't match the regular expression pattern.
-                          if (!emailRegex.hasMatch(val)) {
-                            return 'Email Address is Not Valid';
-                          }
-                          // If the email input isn't empty and matches the regex pattern, return null (indicating no errors).
-                          return null;
-                        }
-                      },
                     ),
-                    const SizedBox(),
+                    const SizedBox(height: 8),
                     TextFormField(
                       controller: passwordController,
                       obscureText: true,
@@ -137,20 +123,7 @@ class LoginScreen extends StatelessWidget {
                       keyboardType: TextInputType.number,
                       decoration:
                           customInputDecoration("Password", isConnected: true),
-                      validator: (val) {
-                        // Check if the PIN Code input is empty.
-                        if (val!.isEmpty) {
-                          return 'PIN Code is Empty';
-                        }
-                        // Check if the length of the PIN Code is less than 6 characters.
-                        else if (val.length < 6) {
-                          return 'PIN Code Must Be 6 Chars at least';
-                        }
-                        // If the PIN Code isn't empty and has a length of at least 6 characters, return null (indicating no errors).
-                        else {
-                          return null;
-                        }
-                      },
+                      validator: (val) => Validators.validatePassword(val!),
                       enabled: true,
                     ),
                     Row(
